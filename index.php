@@ -6,7 +6,7 @@
  	exit;
  }
  if($_SERVER['REQUEST_METHOD'] == 'POST'){
- 	$tokenHelper = new TokenHelper($_POST['SPAppToken']);
+ 	$tokenHelper = new TokenHelper($_POST['SPSiteUrl'], $_POST['SPAppToken']);
  	$accessToken = $tokenHelper->GetAccessToken();
  	
  	//Using curl to post the information to STS and get back the authentication response
