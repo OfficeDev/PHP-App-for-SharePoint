@@ -12,9 +12,23 @@
  //	in the body of the request. 
  if($_SERVER['REQUEST_METHOD'] == 'POST'){
  	// Initialize the TokenHelper class with parameters from the POST request
- 	$tokenHelper = new TokenHelper($_POST['SPSiteUrl'], $_POST['SPAppToken']);
+ 	try{
+ 		$tokenHelper = new TokenHelper($_POST['SPSiteUrl'], $_POST['SPAppToken']);
+ 	}
+ 	catch(Exception $e){
+		echo 'An exception occurred creating the TokenHelper object: ' . $e->getMessage(); 		
+		exit;
+ 	}
  	// Get the access token object from the TokenHelper class
- 	$accessToken = $tokenHelper->GetAccessToken();
+ 	
+ 	try{
+ 		// We have an access token. Save the token to a session variable for reuse until it expires
+ 		$accessToken = $tokenHelper->GetAccessToken();
+ 	}
+ 	catch(Exception $e){
+ 		echo 'An exception occurred getting an access token: ' . $e->getMessage();
+ 		exit;
+ 	}
  	
  	//Initialize a CURL instance
  	$ch = curl_init();

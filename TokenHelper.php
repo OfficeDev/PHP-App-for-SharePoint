@@ -23,22 +23,41 @@ class TokenHelper {
 		// Get the values from the application.ini configuration file
 		// The configuration file should have client_id, client_secret, and redirect_uri declared
 		$config = parse_ini_file('application.ini', false, INI_SCANNER_NORMAL);
+		// Validate the configuration file
+		if($config['client_secret'] === null){
+			throw new DomainException("client_secret configuration value is not present in application.ini");
+		}
+		if($config['client_id'] === null){
+			throw new DomainException("client_id configuration value is not present in application.ini");
+		}
+		if($config['redirect_uri'] === null){
+			throw new DomainException("redirect_uri configuration value is not present in application.ini");
+		}
 		
 		// We need to URLEncode the parameters that we are going to send to the token service.
 		$this->clientSecret = urlencode($config['client_secret']);
 		
 		// Extract the host part of the SharePoint site URL
 		$host = parse_url($SPSiteUrl, PHP_URL_HOST);
+		// Validate that parse_url at least could parse the SPSiteUrl parameter
+		if(!$host){
+			throw new DomainException("The SPSiteUrl parameter is not a valid URI");
+		}
 		
 		// The JWT token is base 64 coded. Dedocing it gives us a string in JSON format.
 		$json = base64_decode($SPAppToken);
-		// Clean the json string
+		// Remove the extra characters from the JSON string
 		$start = strpos($json, '}') + 1;
 		$length = strrpos($json, '}') + 1 - $start;
 		$json = substr($json, $start, $length);
 		
 		// Get a JSON object from the string and and extract the appCtx
 		$jsonObj = json_decode($json);
+		
+		if($jsonObj === null){
+			throw new DomainException("The SPAppToken parameter is not a base64 JSON string");
+		}
+		
 		$appCtx = json_decode($jsonObj->appctx);
 		
 		// The appCtxSender contains values that we need to construct parameters that we send to the token service
