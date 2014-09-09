@@ -112,7 +112,7 @@ class TokenHelper {
 
 //*********************************************************
 //
-//O365-APIs-Start-Windows, https://github.com/OfficeDev/O365-APIs-Start-Windows
+//PHP-App-for-SharePoint, https://github.com/OfficeDev/PHP-App-for-SharePoint
 //
 //Copyright (c) Microsoft Corporation
 //All rights reserved.
