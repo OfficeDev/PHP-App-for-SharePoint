@@ -1,4 +1,6 @@
 <?php
+// Copyright (c) Microsoft. All rights reserved. Licensed under the MIT license. See full license at the bottom of this file.
+
  // Include the TokenHelper class
  require_once 'TokenHelper.php';
 
