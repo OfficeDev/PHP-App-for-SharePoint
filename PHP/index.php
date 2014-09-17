@@ -64,9 +64,18 @@ else {
     curl_close($curlObj);
     // Decode the response using the JSON decoder
     $jsonResult = json_decode($output);
-    // Print the result to the page
-    echo '<p>Querying the REST endpoint '. $apiUrl . '<br/>';
-    echo 'Result: ' . $jsonResult->d->Title.'</p>';
+    
+    if($jsonResult->d != null){
+        // Print the result to the page
+        echo '<p>Querying the REST endpoint '. $apiUrl . '<br/>';
+        echo 'Result: ' . $jsonResult->d->Title.'</p>';
+    }
+    else{
+        // There was a problem with the request
+        echo '<p>There was a problem querying the REST endpoint '. $apiUrl . '<br/>';
+        echo 'Error code: ' . $jsonResult->error->code . '<br/>';
+        echo 'Error message: '. $jsonResult->error->message->value . '</p>';
+    }
  }
  
  //*********************************************************

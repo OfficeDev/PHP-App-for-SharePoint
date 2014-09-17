@@ -3,10 +3,10 @@
 // See full license at the bottom of this file.
 
 /*! @class TokenHelper
-    @abstract A helper class that retrieves the access token given the SPAppToken
-             and SharePoint SiteUrl. The class assumes that the client_id, 
-             client_secret, and redirect_uri are declared in the application.ini 
-             configuration file.
+    @abstract A helper class that retrieves the OAuth access token given the 
+             SPAppToken and SharePoint SiteUrl. The class assumes that the 
+             client_id, client_secret, and redirect_uri are declared in the 
+             application.ini configuration file.
 */
 class TokenHelper {
     
