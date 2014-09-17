@@ -1,11 +1,12 @@
 <?php
-require_once 'HTTP/Request.php';
-
-// Copyright (c) Microsoft. All rights reserved. Licensed under the MIT license. See full license at the bottom of this file.
+// Copyright (c) Microsoft. All rights reserved. Licensed under the MIT license.
+// See full license at the bottom of this file.
 
 /*! @class TokenHelper
-    @abstract A helper class that retrieves the access token given the SPAppToken and SharePoint SiteUrl. 
-                The class assumes that the client_id, client_secret, and redirect_uri are declared in the application.ini configuration file.
+    @abstract A helper class that retrieves the access token given the SPAppToken
+             and SharePoint SiteUrl. The class assumes that the client_id, 
+             client_secret, and redirect_uri are declared in the application.ini 
+             configuration file.
 */
 class TokenHelper {
     
@@ -16,38 +17,49 @@ class TokenHelper {
     private $resource;
     
     /*! @function __construct
-        @abstract Initializes an instance of the TokenHelper class with values passed as parameters,
-                    as well as values declared in the application.ini configuration file.
-        @param SPSiteUrl string - The URL of the SharePoint site from where the PHP web application was invoked.
-        @param SPAppToken The JWT token that contains the refresh token and the token service URI.
-        @result Object - The TokenHelper instance that we can use to get an access token.
+        @abstract Initializes an instance of the TokenHelper class with values 
+                  passed as parameters, as well as values declared in the 
+                  application.ini configuration file.
+        @param SPSiteUrl string - The URL of the SharePoint site from where the
+                                  PHP web application was invoked.
+        @param SPAppToken - The JWT token that contains the refresh token and 
+                            the token service URI.
+        @result Object - The TokenHelper instance that we can use to get 
+                         an access token.
     */
     function __construct($SPSiteUrl, $SPAppToken){
         // Get the values from the application.ini configuration file
-        // The configuration file should have client_id, client_secret, and redirect_uri declared
+        // The configuration file should have client_id, client_secret, 
+        //   and redirect_uri declared
         $config = parse_ini_file('application.ini', false, INI_SCANNER_NORMAL);
         // Validate the configuration file
         if($config['client_secret'] === null){
-            throw new DomainException("client_secret configuration value is not present in application.ini");
+            throw new DomainException('client_secret configuration value' . 
+                                      ' is not present in application.ini');
         }
         if($config['client_id'] === null){
-            throw new DomainException("client_id configuration value is not present in application.ini");
+            throw new DomainException('client_id configuration value is ' . 
+                                      'not present in application.ini');
         }
         if($config['redirect_uri'] === null){
-            throw new DomainException("redirect_uri configuration value is not present in application.ini");
+            throw new DomainException('redirect_uri configuration value ' . 
+                                      'is not present in application.ini');
         }
 
-        // We need to URLEncode the parameters that we are going to send to the token service.
+        // We need to URLEncode the parameters that we are going to send 
+        //   to the token service.
         $this->clientSecret = urlencode($config['client_secret']);
 
         // Extract the host part of the SharePoint site URL
         $host = parse_url($SPSiteUrl, PHP_URL_HOST);
         // Validate that parse_url at least could parse the SPSiteUrl parameter
         if(!$host){
-            throw new DomainException("The SPSiteUrl parameter is not a valid URI");
+            throw new DomainException('The SPSiteUrl parameter' . 
+                                      ' is not a valid URI');
         }
 
-        // The JWT token is base 64 coded. Decoding it gives us a string in JSON format.
+        // The JWT token is base 64 coded. 
+        //   Decoding it gives us a string in JSON format.
         $json = base64_decode($SPAppToken);
         // Remove the extra characters from the JSON string
         $start = strpos($json, '}') + 1;
@@ -58,14 +70,17 @@ class TokenHelper {
         $jsonObj = json_decode($json);
 
         if($jsonObj === null){
-            throw new DomainException("The SPAppToken parameter is not a base64 JSON string");
+            throw new DomainException('The SPAppToken parameter is ' . 
+                                      ' not a base64 JSON string');
         }
 
         $appCtx = json_decode($jsonObj->appctx);
 
-        // The appCtxSender contains values that we need to construct parameters that we send to the token service
+        // The appCtxSender contains values that we need to
+        //   construct parameters that we send to the token service
         $appCtxSender = explode("@", $jsonObj->appctxsender);
-        $this->resource = urlencode($appCtxSender[0].'/'. $host . '@'.$appCtxSender[1]);
+        $this->resource = urlencode($appCtxSender[0].'/'. 
+                                    $host . '@'.$appCtxSender[1]);
         $this->clientId = urlencode($config['client_id'].'@'.$appCtxSender[1]);
 
         // Extract the refresh token from the JSON object.
@@ -76,36 +91,44 @@ class TokenHelper {
     }
 
     /*! @function GetAccessToken
-        @abstract The constructor has already extracted all the parameters we need to get an access token from the token service.
-                    This function builds the HTTP request and parses the response from the token service.
+        @abstract The constructor has already extracted all the parameters we 
+                  need to get an access token from the token service.
+                  This function builds the HTTP request and parses the 
+                  response from the token service.
         @result Object - An object that represents the access token.
     */
     public function GetAccessToken(){
         // Build the request body with the values built in the constructor.
-        $authenticationRequestBody = 'grant_type=refresh_token&client_id='.$this->clientId.'&client_secret='.$this->clientSecret.'&refresh_token='.$this->refreshToken.'&resource='.$this->resource;
+        $authenticationRequestBody = 'grant_type=refresh_token'.
+                                     '&client_id='.$this->clientId.
+                                     '&client_secret='.$this->clientSecret.
+                                     '&refresh_token='.$this->refreshToken.
+                                     '&resource='.$this->resource;
 
         
         // Initialize a CURL object
-        $ch = curl_init();
+        $curlObj = curl_init();
         // set the url to the token service URI
         $stsUrl = $this->tokenServiceUri;
         $request = new HttpRequest($stsUrl);
-        curl_setopt($ch, CURLOPT_URL, $stsUrl);
+        curl_setopt($curlObj, CURLOPT_URL, $stsUrl);
         // Indicate that we want the response as a string
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($curlObj, CURLOPT_RETURNTRANSFER, 1);
         // Indicate that the request method is POST
-        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($curlObj, CURLOPT_POST, 1);
         // Set the parameters for the request, including the body
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $authenticationRequestBody);
+        curl_setopt($curlObj, CURLOPT_POSTFIELDS, $authenticationRequestBody);
 
-        // FIXME: By default, HTTPS does not work with curl. This is a workaround for developer environments.
-        // Using this CURL option exposes the PHP server to man-in-the-middle attacks. Remove in production scenarios.
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        // FIXME: By default, HTTPS does not work with curl. 
+        // This is a workaround for developer environments.
+        // Using this CURL option exposes the PHP server to 
+        // man-in-the-middle attacks. Remove in production scenarios.
+        curl_setopt($curlObj, CURLOPT_SSL_VERIFYPEER, false);
 
         // Execute the request
-        $output = curl_exec($ch);
+        $output = curl_exec($curlObj);
         // Close CURL resource to free up system resources
-        curl_close($ch);
+        curl_close($curlObj);
         // Decode the response using json decoder
         $tokenOutput = json_decode($output);
 
