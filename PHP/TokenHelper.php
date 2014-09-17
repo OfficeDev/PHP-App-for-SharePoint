@@ -110,7 +110,6 @@ class TokenHelper {
         $curlObj = curl_init();
         // set the url to the token service URI
         $stsUrl = $this->tokenServiceUri;
-        $request = new HttpRequest($stsUrl);
         curl_setopt($curlObj, CURLOPT_URL, $stsUrl);
         // Indicate that we want the response as a string
         curl_setopt($curlObj, CURLOPT_RETURNTRANSFER, 1);
