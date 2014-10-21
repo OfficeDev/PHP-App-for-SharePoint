@@ -8,6 +8,7 @@
              client_id, client_secret, and redirect_uri are declared in the 
              application.ini configuration file.
 */
+
 class TokenHelper {
     
     private $clientId;
@@ -28,27 +29,14 @@ class TokenHelper {
                          an access token.
     */
     function __construct($SPSiteUrl, $SPAppToken){
-        // Get the values from the application.ini configuration file
+        // Get the values from the config.php file
         // The configuration file should have client_id, client_secret, 
         //   and redirect_uri declared
-        $config = parse_ini_file('application.ini', false, INI_SCANNER_NORMAL);
-        // Validate the configuration file
-        if($config['client_secret'] === null){
-            throw new DomainException('client_secret configuration value' . 
-                                      ' is not present in application.ini');
-        }
-        if($config['client_id'] === null){
-            throw new DomainException('client_id configuration value is ' . 
-                                      'not present in application.ini');
-        }
-        if($config['redirect_uri'] === null){
-            throw new DomainException('redirect_uri configuration value ' . 
-                                      'is not present in application.ini');
-        }
+        include('config.php');
 
         // We need to URLEncode the parameters that we are going to send 
         //   to the token service.
-        $this->clientSecret = urlencode($config['client_secret']);
+        $this->clientSecret = urlencode($client_secret);
 
         // Extract the host part of the SharePoint site URL
         $host = parse_url($SPSiteUrl, PHP_URL_HOST);
@@ -81,7 +69,7 @@ class TokenHelper {
         $appCtxSender = explode("@", $jsonObj->appctxsender);
         $this->resource = urlencode($appCtxSender[0].'/'. 
                                     $host . '@'.$appCtxSender[1]);
-        $this->clientId = urlencode($config['client_id'].'@'.$appCtxSender[1]);
+        $this->clientId = urlencode($client_id.'@'.$appCtxSender[1]);
 
         // Extract the refresh token from the JSON object.
         $this->refreshToken = urlencode($jsonObj->refreshtoken);
