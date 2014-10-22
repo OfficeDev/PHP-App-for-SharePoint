@@ -4,8 +4,7 @@
 
 $loader = require 'vendor/autoload.php';
 
-// Include the configuration class
-require_once 'TokenHelper.php';
+// Include the configuration parameters
 require_once 'config.php';
 
 // The PHP web application should be started with a SharePoint context, 
@@ -21,132 +20,75 @@ if($_SERVER['REQUEST_METHOD'] !== 'POST'){
 //   contents page, it sends SPSiteUrl and SPAppToken parameters
 //	in the body of the request. 
 else {
-    // Initialize the TokenHelper class with parameters from the POST request
     try{
-        //$tokenHelper = new TokenHelper($_POST['SPSiteUrl'], $_POST['SPAppToken']);
-    	// Extract the host part of the SharePoint site URL
-    	$host = parse_url($_POST['SPSiteUrl'], PHP_URL_HOST);
-    	// Validate that parse_url at least could parse the SPSiteUrl parameter
-    	if(!$host){
-    		throw new DomainException('The SPSiteUrl parameter' .
-    				' is not a valid URI');
-    	}
-    	 
-    	// The JWT token is base 64 coded.
-    	//   Decoding it gives us a string in JSON format.
-    	$json = base64_decode($_POST['SPAppToken']);
-    	// Remove the extra characters from the JSON string
-    	$start = strpos($json, '}') + 1;
-    	$length = strrpos($json, '}') + 1 - $start;
-    	$json = substr($json, $start, $length);
-    	 
-    	// Get a JSON object from the string and and extract the appCtx
-    	$jsonObj = json_decode($json);
-    	 
-    	if($jsonObj === null){
-    		throw new DomainException('The SPAppToken parameter is ' .
-    				' not a base64 JSON string');
-    	}
-    	 
-    	$appCtx = json_decode($jsonObj->appctx);
-    	 
-    	// The appCtxSender contains values that we need to
-    	//   construct parameters that we send to the token service
-    	$appCtxSender = explode("@", $jsonObj->appctxsender);
-    	$resource = $appCtxSender[0].'/'.
-    			$host . '@'.$appCtxSender[1];
-    	$clientId = $client_id.'@'.$appCtxSender[1];
-    	
-    	$clientSecret = $client_secret;
-    	 
-    	// Extract the refresh token from the JSON object.
-    	$refreshToken = $jsonObj->refreshtoken;
-    	 
-    	// Get the token service URI from the JSON object.
-    	$tokenServiceUri = $appCtx->SecurityTokenServiceUri;
+    	// Initialize the SharePoint provider with parameters from the POST request
+    	//  and the client_id and secret
         $provider = new League\OAuth2\Client\Provider\SharePoint(array(
-        		'clientId' => $clientId,
-        		'clientSecret'=> $clientSecret,
-        		'resource' => $resource
+        		'clientId' => $client_id,
+        		'clientSecret'=> $client_secret,
+        		'SPAppToken' => $_POST['SPAppToken'],
+        		'SPSiteUrl' => $_POST['SPSiteUrl']
         ));
-        
-        $provider->setUrlAccessToken($tokenServiceUri);
     }
     catch(Exception $exception){
-        echo '<p>An exception occurred creating the TokenHelper object: ' . 
+        echo '<p>An exception occurred creating the SharePoint provider: ' . 
              $e->getMessage().'</p>'; 		
         exit;
     }
-    // Get the access token object from the TokenHelper class
 
     try{
-        // We have an access token. Save the token to a 
-        //   session variable for reuse until it expires
-    	//$grant = new \League\OAuth2\Client\Grant\RefreshToken();
-    	//$token = $provider->getAccessToken($grant, ['refresh_token' => $refreshToken]);
-    	echo $refreshToken;
+    	// Get the refresh token from the provider
+    	// at this point we haven't requested anything from
+    	// the token service
+        $refreshToken = $provider->getRefreshToken();
+        echo 'Refresh token extracted from the context token: ', '<br />', 
+        		$refreshToken, '<p />';
+        
+        // Getting ready to request an access token for this resource 
+        // to the token service.        
+        $resource = $provider->getResource();
+        $tokenServiceUri = $provider->urlAccessToken();
     	$grant = new \League\OAuth2\Client\Grant\RefreshToken();
+    	echo 'Getting ready to request an access token: ', '<br />', 
+    			'Resource: ', $resource, '<br />',
+    			'Token service: ', $tokenServiceUri, '<p />';
     	$accessToken = $provider->getAccessToken($grant, ['refresh_token' => $refreshToken, 'resource' => $resource]);
-    	//$tokenHelper = new TokenHelper($_POST['SPSiteUrl'], $_POST['SPAppToken']);
-    	//$accessToken = $tokenHelper->GetAccessToken();
-    	echo '<p>';
-    	echo $accessToken->accessToken;
+    	// We have an access token. Save the token to a
+    	//   session variable for reuse until it expires
+    	echo 'Access token: ', '<br />', $accessToken->accessToken, '<p />';
     	
     	//This is the REST endpoint that we are sending our request to
     	$apiUrl = $_POST['SPSiteUrl'] . '/_api/web/title';
-    	$client = new Guzzle\Service\Client();
-    	$request = $client->createRequest('GET', $apiUrl, [
-    			'headers' => ['Authorization' => 'Bearer ' . $accessToken->accessToken,
-    							'Accept' => 'application/json;odata=verbose'
-    			]
-    	]);
     	
+    	// Using guzzle to create an http client
+    	// pass the access token in the Authorization header
+    	$client = new Guzzle\Service\Client();
+    	$request = $client->createRequest('GET', $apiUrl);
+    	$request->setHeader('Authorization', 'Bearer ' . $accessToken->accessToken);
+    	$request->setHeader('Accept', 'application/json;odata=verbose');
     	$response = $client->send($request);
-    	echo $response->getBody(true);
-    	echo 'something';
+
+    	//Decode the response using the JSON decoder
+    	$output = $response->getBody(true);
+    	$jsonResult = json_decode($output);
+    	
+    	if($jsonResult->d != null){
+    		// Print the result to the page
+    	 	echo '<p>Querying the REST endpoint ', $apiUrl , '<br/>';
+    	   	echo 'Result: ' , $jsonResult->d->Title , '</p>';
+    	}
+    	else{
+    	  	// There was a problem with the request
+    	   	echo '<p>There was a problem querying the REST endpoint '. $apiUrl . '<br/>';
+    	   	echo 'Error code: ' . $jsonResult->error->code . '<br/>';
+    	   	echo 'Error message: '. $jsonResult->error->message->value . '</p>';
+    	}
     }
     catch(Exception $exception){
         echo '<p>An exception occurred getting an access token: ' . 
              $exception->getMessage().'</p>';
         exit;
     }
-//     //Initialize a CURL instance
-//     $curlObj = curl_init();
-//     // //This is the REST endpoint that we are sending our request to
-//     $apiUrl = $_POST['SPSiteUrl'] . '/_api/web/title';
-//     curl_setopt($curlObj, CURLOPT_URL, $apiUrl);
-//     // Indicate that we want the response back as a string
-//     curl_setopt($curlObj, CURLOPT_RETURNTRANSFER, 1);
-//     // FIXME: By default, HTTPS does not work with curl.
-//     //   This is a workaround for developer environments.
-//     // Using this CURL option exposes the PHP server to man-in-the-middle attacks.
-//     //   Remove in production scenarios.
-//     curl_setopt($curlObj, CURLOPT_SSL_VERIFYPEER, false);
-//     //Add accept and authorization headers, along with the access token
-//     curl_setopt($curlObj, CURLOPT_HTTPHEADER, array('Authorization: Bearer '.
-//     		$accessToken->access_token,
-//     		'Accept:application/json;odata=verbose'));
-     
-//     // Execute the request and get the response in the
-//     //   output variable as a string
-//     $output = curl_exec($curlObj);
-//     // Close curl instance to free up system resources
-//     curl_close($curlObj);
-//     // Decode the response using the JSON decoder
-//     $jsonResult = json_decode($output);
-     
-//     if($jsonResult->d != null){
-//     	// Print the result to the page
-//     	echo '<p>Querying the REST endpoint '. $apiUrl . '<br/>';
-//     	echo 'Result: ' . $jsonResult->d->Title.'</p>';
-//     }
-//     else{
-//     	// There was a problem with the request
-//     	echo '<p>There was a problem querying the REST endpoint '. $apiUrl . '<br/>';
-//     	echo 'Error code: ' . $jsonResult->error->code . '<br/>';
-//     	echo 'Error message: '. $jsonResult->error->message->value . '</p>';
-//     }
-    
  }
  
  //*********************************************************

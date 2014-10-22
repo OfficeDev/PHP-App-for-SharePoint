@@ -1,13 +1,12 @@
 <?php
-// You can get the client_id, client_secret, and redirect_uri values from the
+// You can get the client_id, and client_secret values from the
 // appregnew.aspx page in your SharePoint site.
 // Register your app in the following page:
 //    https://<your_sharepoint_site/_layouts/15/appregnew.aspx
 // Copy the values from the app registration page and paste in this file
 
-$client_id = "add3f6d9-b401-4dd1-8441-9b589f2541cf";
-$client_secret = "dCekKdB3Q5zy+yyv+LhNzSX9SB1nEUeRhhCHjtrpP4c=";
-$redirect_uri = "https://localhost/eclipsetemplateweb/index.php";
+$client_id = "<your client_id value>";
+$client_secret = "<your client_secret value>";
 
 //*********************************************************
 //
