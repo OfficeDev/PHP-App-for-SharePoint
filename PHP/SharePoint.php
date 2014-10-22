@@ -31,9 +31,10 @@ class SharePoint extends AbstractProvider
     	// The JWT token is base 64 coded.
     	//   Decoding it gives us a string in JSON format.
     	$json = base64_decode($options['SPAppToken']);
-    	// Remove the extra characters from the JSON string
-    	$start = strpos($json, '}') + 1;
-    	$length = strrpos($json, '}') + 1 - $start;
+    	// Remove the JWT header
+    	$start = strpos($json, '{"typ":"JWT","alg":"HS256"}') + 27;
+	// And get the body of the token
+    	$length = strrpos($json, '"}') + 2 - $start;
     	$json = substr($json, $start, $length);
     	
     	// Get a JSON object from the string and and extract the appCtx
