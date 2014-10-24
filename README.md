@@ -1,6 +1,6 @@
 # PHP App for SharePoint sample
 
-**Table of Content**
+**Table of Contents**
 - [Overview](#overview)
 - [Prerequisites](#prerequisites)
 - [Configure the sample](#configure-the-sample)
@@ -52,9 +52,10 @@ Composer downloads the dependencies required by the project.
 
 The sample is configured to use a web application that resolves to **PHPAppWeb**. To make it easier to configure your app we recommend that you use PHPAppWeb as your web application name. Follow this procedure to create the web application:
 
-1. Clone or download the git repository to your web server.
-2. Create a web application on your web server with a name of PHPAppWeb.
-3. Point the web application to the **PHP** folder included in the sample.
+1. Create a web application on your web server with a name of PHPAppWeb.
+2. Map the web application physical path to the **PHP** folder included in the sample.
+
+**Note**: The web application must be configured to use SSL.
 
 ### Register your app in SharePoint
 
@@ -67,7 +68,7 @@ Since you're not installing the app from the [Office Store](http://office.micros
 	- Title - PHP App for SharePoint
 	- App Domain - localhost
 	- Redirect URI - https://localhost/phpappweb/index.php
-3. Copy the Client Id, and Client Secret values and store for future reference. You'll need them to update the configuration and app manifest files.
+3. Copy the values and store for future reference. You'll need them to update the configuration and app manifest files.
 4. Click Create.
 
 ### Update the configuration file
@@ -87,9 +88,10 @@ The sample requires the client_id, and client_secret values from the app registr
 
 The AppTemplate.app file is an app package that contains the app manifest file. You have to update the app manifest file with the client_id value obtained in the **Register your app in SharePoint** task. Follow this procedure to update the app manifest file:
 
-1. Rename the **AppPackage.app** file provided in this sample to **AppPackage.zip**
-2. Open the zip file and extract the **AppManifest.xml** file.
-3. Find the placeholder text *<your client_id value>* and replace with the Client Id value from the app registration page.
+1. Go to the root folder of the sample.
+2. Rename the **AppPackage.app** file provided in this sample to **AppPackage.zip**
+3. Open the zip file and extract the **AppManifest.xml** file.
+4. Edit the AppManfest. xml file. Replace *<your client_id value>* with the Client Id value from the app registration page.
 
 	```
 	<AppPrincipal>
@@ -99,13 +101,15 @@ The AppTemplate.app file is an app package that contains the app manifest file. 
 4. Replace the AppManifest.xml file in the zip file.
 5. Rename the AppPackage.zip file back to AppPackage.app
 
+**Note**: The updated AppPackage.app file must keep the same file structure as the original. Moving files or folders can invalidate your package.
+
 ### Deploy the app to the SharePoint site
 
 You can deploy the app using the app catalog that lets administrators deploy business apps to SharePoint sites in the tenant.
 
 1. If you don't have an app catalog site in your tenant, create one. For more information, see [Create an App Catalog site](http://office.microsoft.com/en-us/sharepoint-help/use-the-app-catalog-to-make-custom-business-apps-available-for-your-sharepoint-online-environment-HA102772362.aspx#_Toc347303048).
 2. Add the AppTemplate.app file to the app catalog. For more information, see [Add custom apps to the App Catalog site](http://office.microsoft.com/en-us/sharepoint-help/use-the-app-catalog-to-make-custom-business-apps-available-for-your-sharepoint-online-environment-HA102772362.aspx#_Toc347303049).
-3. Go to your SharePoint site. From the Settings menu (the gear in the top right corner of the page) choose **Add an app**.
+3. Go to the SharePoint site where you want to deploy the app. From the Settings menu (the gear in the top right corner of the page) choose **Add an app**.
 4. Choose the PHP App for SharePoint app. In the consent page, choose **Trust It**.
 
 ## Run the sample
@@ -116,11 +120,10 @@ To run the sample, simply click on the **PHP App for SharePoint** app in the Sha
 
 The sample includes the following components that help you configure and test the app in your environment.  
 
-### SharePoint provider class
-This is a PHP class that implements the **AbstractProvider** class in the OAuth 2.0 client  
-exposes a function to get a token that you can use to issue authenticated requests.
+### SharePoint.php
+This is a PHP class that inherits from the **AbstractProvider** class. The AbstractProvider class exposes a function to get a token that you can use to issue authorized requests.
  
-The class initializes the values required to get the access token. Requires the client id, client secret, SharePoint site URL, and a context token. It extracts and formats the following values from the context token:
+The class initializes the values required to get the access token. The constructir requires the client id, client secret, SharePoint site URL, and a context token as parameters. The constructor extracts and formats the following values from the context token:
 
 - Refresh token
 - Token service URI
@@ -133,7 +136,7 @@ After creating a SharePoint provider object, PHP pages can call the **getAccessT
 
 - Checks that the request is using the POST method. If the request is using GET instead it tells the user to start the app from the SharePoint site contents page.
 - Initializes a SharePoint provider instance.
-- Gets an access token using the getAccessToken function of the TokenHelper class.
+- Gets an access token using the getAccessToken function of the AbstractProvider class.
 - Issues an authenticated request to a REST endpoint exposed by the SharePoint site.
 - Prints the result to the browser.
 
