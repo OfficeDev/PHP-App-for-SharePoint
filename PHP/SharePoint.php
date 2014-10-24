@@ -31,6 +31,7 @@ class SharePoint extends AbstractProvider
     	// The JWT token is base 64 coded.
     	//   Decoding it gives us a string in JSON format.
     	$json = base64_decode($options['SPAppToken']);
+    	echo $json;
     	// Remove the JWT header
     	$start = strpos($json, '{"typ":"JWT","alg":"HS256"}') + 27;
 	// And get the body of the token
