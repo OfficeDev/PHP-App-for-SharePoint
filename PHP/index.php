@@ -18,7 +18,8 @@ if($_SERVER['REQUEST_METHOD'] !== 'POST'){
 }
 // When the web application is launched from the SharePoint 
 //   contents page, it sends SPSiteUrl and SPAppToken parameters
-//	in the body of the request. 
+//	in the body of the request.
+// In production scenarios, validate that SPAppToken is intended for this application.
 else {
     try{
     	// Initialize the SharePoint provider with parameters from the POST request
@@ -40,6 +41,9 @@ else {
     	// Get the refresh token from the provider
     	// at this point we haven't requested anything from
     	// the token service
+    	// In production scenarios, save the refresh token in a storage
+    	// mechanism that can span many sessions of the same user. We can use the refresh token
+    	// to request more access tokens.
         $refreshToken = $provider->getRefreshToken();
         echo 'Refresh token extracted from the context token: ', '<br />', 
         		$refreshToken, '<p />';
@@ -53,8 +57,9 @@ else {
     			'Resource: ', $resource, '<br />',
     			'Token service: ', $tokenServiceUri, '<p />';
     	$accessToken = $provider->getAccessToken($grant, ['refresh_token' => $refreshToken, 'resource' => $resource]);
-    	// We have an access token. Save the token to a
-    	//   session variable for reuse until it expires
+    	// We have an access token.
+    	// In production scenarios, save the access token in an appropriate
+    	// storage mechanism so you can use it during the user's session. 
     	echo 'Access token: ', '<br />', $accessToken->accessToken, '<p />';
     	
     	//This is the REST endpoint that we are sending our request to
