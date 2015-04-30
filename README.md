@@ -65,11 +65,13 @@ Since you're not installing the app from the [Office Store](http://office.micros
 2. Fill the following fields in the page:
 	- Client Id - Click the Generate button to let SharePoint create a value for you.
 	- Client Secret - Click the Generate button to let SharePoint create a value for you.
-	- Title - PHP App for SharePoint
+	- Title - PHPAppforSharePoint
 	- App Domain - localhost
 	- Redirect URI - https://localhost/phpappweb/index.php
 3. Copy the values and store for future reference. You'll need them to update the configuration and app manifest files.
 4. Click Create.
+
+> Note: If you specify a title other than PHPAppforSharePoint you must update the Name attribute of the App element in the app manifest accordingly.
 
 ### Update the configuration file
 
