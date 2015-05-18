@@ -1,5 +1,7 @@
 # PHP App for SharePoint sample
 
+[日本 (日本語)](/loc/README-ja.md)
+
 **Table of Contents**
 - [Overview](#overview)
 - [Prerequisites](#prerequisites)
