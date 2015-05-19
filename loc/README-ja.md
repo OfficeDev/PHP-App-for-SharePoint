@@ -7,6 +7,7 @@
 - [サンプルを実行する](#run-the-sample)
 - [プロジェクト ファイル](#project-files)
 
+<a name="overview"></a>
 ## Overview
 
 SharePoint のアプリ モデルを使用すると、特定の技術に結び付けずにアプリをビルドできます。お好みの言語とツールを使用して、アプリを構成するコンポーネントとページで作業することができます。 
@@ -20,6 +21,7 @@ SharePoint のアプリ モデルを使用すると、特定の技術に結び�
 
 簡単にですが、お好みの技術である PHP を使用して、SharePoint 用アプリのビルドを開始するために知る必要がある基本概念を示しています。
 
+<a name="prerequisites"></a>
 ## 前提条件
 
 このサンプルを実行するには次のものが必要です。
@@ -27,6 +29,7 @@ SharePoint のアプリ モデルを使用すると、特定の技術に結び�
 - PHP バージョン 5.3 以上の Web サーバー。
 - Office 365 の SharePoint サイト。試用版のサイトを取得するには、「[Office 365 Developer](https://portal.office.com/Signup/Signup.aspx?OfferId=6881A1CB-F4EB-4db3-9F18-388898DAF510&DL=DEVELOPERPACK&ali=1)」を参照してください。
 
+<a name="configure-the-sample"></a>
 ## サンプルを構成する
 
 サンプルを構成するには、次の作業を実行する必要があります。
@@ -38,6 +41,7 @@ SharePoint のアプリ モデルを使用すると、特定の技術に結び�
 5. [アプリのマニフェストで *client_id* を更新する](#update-the-app-manifest)
 6. [アプリを SharePoint サイトに展開する](#deploy-the-app-to-the-sharepoint-site)
 
+<a name="get-the-dependencies"></a>
 ### 依存関係を取得する
 
 このサンプルでは、PHP の [OAuth 2.0 クライアント ライブラリ](https://github.com/thephpleague/oauth2-client)を使用しています。ライブラリを取得するには、[作成ツール](https://getcomposer.org/)を使用します。この手順に従って依存関係を取得します。
@@ -48,6 +52,7 @@ SharePoint のアプリ モデルを使用すると、特定の技術に結び�
 
 作成ツールは、プロジェクトで必要となる依存関係をダウンロードします。
 
+<a name="create-a-web-application"></a>
 ### Web アプリケーションを作成する。
 
 サンプルは、**PHPAppWeb** を解決する Web アプリケーションを使用するように構成されています。アプリを構成しやすくするため、Web アプリケーションの名前として PHPAppWeb を使用することをお勧めします。次の手順に従って、Web アプリケーションを作成します。
@@ -57,6 +62,7 @@ SharePoint のアプリ モデルを使用すると、特定の技術に結び�
 
 **注**:Web アプリケーションは、SSL を使用するように構成する必要があります。
 
+<a name="register-your-app-in-sharepoint"></a>
 ### SharePoint にアプリを登録する
 
 アプリは [Office ストア](http://office.microsoft.com/en-us/store-FX102759646.aspx)からインストールしているのではないので、アプリを展開する前に、SharePoint に登録する必要があります。アプリケーションを登録するには、次の手順に従います。
@@ -73,6 +79,7 @@ SharePoint のアプリ モデルを使用すると、特定の技術に結び�
 
 > 注:PHPAppforSharePoint 以外のタイトルを指定した場合は、状況に応じてアプリ マニフェストの App 要素の Name 属性を更新する必要があります。
 
+<a name="update-the-configuration-file"></a>
 ### 構成ファイルを更新する
 
 サンプルには、前の作業のアプリの登録ページにある client_id と client_secret の値が必要になります。config.php ファイルの値を更新するには、次の手順を実行します。
@@ -86,6 +93,7 @@ SharePoint のアプリ モデルを使用すると、特定の技術に結び�
 	```
 3. config.php ファイルを保存します。
 
+<a name="update-the-app-manifest"></a>
 ### アプリ マニフェストを更新します。
 
 AppTemplate.app ファイルは、アプリのマニフェスト ファイルを含むアプリのパッケージです。**SharePoint にアプリを登録する**作業で取得した client_id 値でアプリのマニフェスト ファイルを更新する必要があります。この手順に従って、アプリのマニフェスト ファイルを更新します。
@@ -105,6 +113,7 @@ AppTemplate.app ファイルは、アプリのマニフェスト ファイルを
 
 **注**:更新された AppPackage.app ファイルは、元のファイルと同じファイル構造を維持する必要があります。ファイルまたはフォルダーを移動すると、パッケージが無効になります。
 
+<a name="deploy-the-app-to-the-sharepoint-site"></a>
 ### アプリを SharePoint サイトに展開する
 
 管理者がテナント内の SharePoint サイトにビジネス アプリを展開できるようにするアプリ カタログを使用してアプリを展開することができます。
@@ -114,10 +123,12 @@ AppTemplate.app ファイルは、アプリのマニフェスト ファイルを
 3. アプリを展開する SharePoint サイトに移動します。[設定] メニュー (ページの右上隅にある歯車) から、**[アプリの追加]** を選択します。
 4. [SharePoint 用 PHP アプリ] を選択します。[同意] ページで、**[信頼する]** を選択します。
 
+<a name="run-the-sample"></a>
 ## サンプルを実行する
 
 サンプルを実行するには、[SharePoint サイトのコンテンツ] ページで、**[SharePoint 用 PHP アプリ]** をクリックします。コンテンツのページを見つけるには、サイトに移動して、[設定] メニュー (ページの右上隅にある歯車) をクリックし、**[サイトのコンテンツ]** を選択します。
 
+<a name="project-files"></a>
 ## プロジェクト ファイル
 
 サンプルには、ご使用の環境でアプリの構成とテストを実行する次のコンポーネントが含まれています。  

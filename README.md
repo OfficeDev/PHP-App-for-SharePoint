@@ -9,6 +9,7 @@
 - [Run the sample](#run-the-sample)
 - [Project Files](#project-files)
 
+<a name="overview"></a>
 ## Overview
 
 The app model in SharePoint lets you build apps without tying you to a particular technology. You can use the language and tools of your preference to work on the components and pages that constitute your app. 
@@ -22,6 +23,7 @@ Figure 1. PHP App for SharePoint conceptual diagram
 
 Simple, but it illustrates the basic concepts that you need to know to start building apps for SharePoint using your favorite technology, PHP.
 
+<a name="prerequisites"></a>
 ## Prerequisites
 
 This sample requires the following:
@@ -29,6 +31,7 @@ This sample requires the following:
 - Web server with PHP version 5.3 or higher.
 - SharePoint site on Office 365. To get a trial site, see [Sign up for an Office 365 Developer Subscription](https://portal.office.com/Signup/Signup.aspx?OfferId=6881A1CB-F4EB-4db3-9F18-388898DAF510&DL=DEVELOPERPACK&ali=1).
 
+<a name="configure-the-sample"></a>
 ## Configure the sample
 
 You must complete the following tasks to configure the sample:
@@ -40,6 +43,7 @@ You must complete the following tasks to configure the sample:
 5. [Update the *client_id* in the app manifest](#update-the-app-manifest)
 6. [Deploy the app to the SharePoint site](#deploy-the-app-to-the-sharepoint-site)
 
+<a name="get-the-dependencies"></a>
 ### Get the dependencies
 
 The sample uses the [OAuth 2.0 client library](https://github.com/thephpleague/oauth2-client) for PHP. You can use [Composer](https://getcomposer.org/) to get the library. Follow this procedure to get the dependencies:
@@ -50,6 +54,7 @@ The sample uses the [OAuth 2.0 client library](https://github.com/thephpleague/o
 
 Composer downloads the dependencies required by the project.
 
+<a name="create-a-web-application"></a>
 ### Create a web application
 
 The sample is configured to use a web application that resolves to **PHPAppWeb**. To make it easier to configure your app we recommend that you use PHPAppWeb as your web application name. Follow this procedure to create the web application:
@@ -59,6 +64,7 @@ The sample is configured to use a web application that resolves to **PHPAppWeb**
 
 **Note**: The web application must be configured to use SSL.
 
+<a name="register-your-app-in-sharepoint"></a>
 ### Register your app in SharePoint
 
 Since you're not installing the app from the [Office Store](http://office.microsoft.com/en-us/store-FX102759646.aspx), you must register your app in SharePoint before deploying it. Follow this procedure to register the app:
@@ -75,6 +81,7 @@ Since you're not installing the app from the [Office Store](http://office.micros
 
 > Note: If you specify a title other than PHPAppforSharePoint you must update the Name attribute of the App element in the app manifest accordingly.
 
+<a name="update-the-configuration-file"></a>
 ### Update the configuration file
 
 The sample requires the client_id, and client_secret values from the app registration page in the previous task. To update the values in the config.php file, follow this procedure:
@@ -88,6 +95,7 @@ The sample requires the client_id, and client_secret values from the app registr
 	```
 3. Save the config.php file.
 
+<a name="update-the-app-manifest"></a>
 ### Update the app manifest
 
 The AppTemplate.app file is an app package that contains the app manifest file. You have to update the app manifest file with the client_id value obtained in the **Register your app in SharePoint** task. Follow this procedure to update the app manifest file:
@@ -107,6 +115,7 @@ The AppTemplate.app file is an app package that contains the app manifest file. 
 
 **Note**: The updated AppPackage.app file must keep the same file structure as the original. Moving files or folders can invalidate your package.
 
+<a name="deploy-the-app-to-the-sharepoint-site"></a>
 ### Deploy the app to the SharePoint site
 
 You can deploy the app using the app catalog that lets administrators deploy business apps to SharePoint sites in the tenant.
@@ -116,10 +125,12 @@ You can deploy the app using the app catalog that lets administrators deploy bus
 3. Go to the SharePoint site where you want to deploy the app. From the Settings menu (the gear in the top right corner of the page) choose **Add an app**.
 4. Choose the PHP App for SharePoint app. In the consent page, choose **Trust It**.
 
+<a name="run-the-sample"></a>
 ## Run the sample
 
 To run the sample, simply click on the **PHP App for SharePoint** app in the SharePoint site contents page. To find the contents page go to your site, click on the Settings menu (the gear in the top right corner of the page), and choose **Site contents**.
 
+<a name="project-files"></a>
 ## Project Files
 
 The sample includes the following components that help you configure and test the app in your environment.  
