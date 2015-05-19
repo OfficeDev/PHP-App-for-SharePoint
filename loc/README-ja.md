@@ -65,7 +65,7 @@ SharePoint のアプリ モデルを使用すると、特定の技術に結び�
 <a name="register-your-app-in-sharepoint"></a>
 ### SharePoint にアプリを登録する
 
-アプリは [Office ストア](http://office.microsoft.com/en-us/store-FX102759646.aspx)からインストールしているのではないので、アプリを展開する前に、SharePoint に登録する必要があります。アプリケーションを登録するには、次の手順に従います。
+アプリは [Office ストア](http://store.office.com)からインストールしているのではないので、アプリを展開する前に、SharePoint に登録する必要があります。アプリケーションを登録するには、次の手順に従います。
 
 1. ブラウザーを開き、https://*yoursharepointsite*/_layouts/15/appregnew.aspx に移動します。
 2. ページの次のフィールドに記入します。

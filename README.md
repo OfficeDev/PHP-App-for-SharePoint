@@ -67,7 +67,7 @@ The sample is configured to use a web application that resolves to **PHPAppWeb**
 <a name="register-your-app-in-sharepoint"></a>
 ### Register your app in SharePoint
 
-Since you're not installing the app from the [Office Store](http://office.microsoft.com/en-us/store-FX102759646.aspx), you must register your app in SharePoint before deploying it. Follow this procedure to register the app:
+Since you're not installing the app from the [Office Store](http://store.office.com), you must register your app in SharePoint before deploying it. Follow this procedure to register the app:
 
 1. Open a browser and go to https://*yoursharepointsite*/_layouts/15/appregnew.aspx
 2. Fill the following fields in the page:
