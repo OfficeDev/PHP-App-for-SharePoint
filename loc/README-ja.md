@@ -1,4 +1,4 @@
-# SharePoint 用 PHP アプリのサンプル
+﻿# SharePoint 用 PHP アプリのサンプル
 
 **目次**
 - [概要](#overview)
@@ -8,7 +8,7 @@
 - [プロジェクト ファイル](#project-files)
 
 <a name="overview"></a>
-## Overview
+## 概要
 
 SharePoint のアプリ モデルを使用すると、特定の技術に結び付けずにアプリをビルドできます。お好みの言語とツールを使用して、アプリを構成するコンポーネントとページで作業することができます。 
 
