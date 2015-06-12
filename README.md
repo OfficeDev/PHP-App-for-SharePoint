@@ -1,6 +1,6 @@
 # PHP App for SharePoint sample
 
-[日本 (日本語)](/loc/README-ja.md)
+[日本 (日本語)](/loc/README-ja.md) (Japanese)
 
 **Table of Contents**
 - [Overview](#overview)
