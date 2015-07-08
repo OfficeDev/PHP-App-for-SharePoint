@@ -1,4 +1,6 @@
-﻿# SharePoint 用 PHP アプリのサンプル
+# SharePoint 用 PHP アプリのサンプル
+
+[日本 (日本語)](/loc/README-ja.md) (日本語)
 
 **目次**
 - [概要](#overview)
