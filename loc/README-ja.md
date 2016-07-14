@@ -16,9 +16,9 @@ SharePoint のアプリ モデルを使用すると、特定の技術に結び�
 
 このサンプルは、PHP を使用する SharePoint のアプリのビルドを開始するために作成されました。 
 
-このサンプルは、[プロバイダーでホストされた](http://msdn.microsoft.com/library/office/fp179887.aspx#SelfHosted) SharePoint 用アプリです。このアプリは、PHP の [OAuth 2.0 クライアント ライブラリ](https://github.com/thephpleague/oauth2-client) を使用してアクセス トークンを取得します。PHP ページでは、トークンを使用して SharePoint の REST エンドポイントに認証済みの要求を発行します。 
+このサンプルは、[プロバイダーでホストされた](http://msdn.microsoft.com/ja-jp/library/office/fp179887.aspx#SelfHosted) SharePoint 用アプリです。このアプリは、PHP の [OAuth 2.0 クライアント ライブラリ](https://github.com/thephpleague/oauth2-client) を使用してアクセス トークンを取得します。PHP ページでは、トークンを使用して SharePoint の REST エンドポイントに認証済みの要求を発行します。 
 
-<img alt="SharePoint 用 PHP アプリの概念図" src="../PHPAppSharePoint diagram.png">
+<img alt="SharePoint 用 PHP アプリの概念図" src="PHPAppSharePoint diagram.png">
 図 1。SharePoint 用 PHP アプリの概念図
 
 簡単にですが、お好みの技術である PHP を使用して、SharePoint 用アプリのビルドを開始するために知る必要がある基本概念を示しています。
@@ -29,7 +29,7 @@ SharePoint のアプリ モデルを使用すると、特定の技術に結び�
 このサンプルを実行するには次のものが必要です。
 
 - PHP バージョン 5.3 以上の Web サーバー。
-- Office 365 の SharePoint サイト。試用版のサイトを取得するには、「[Office 365 Developer](https://portal.office.com/Signup/Signup.aspx?OfferId=6881A1CB-F4EB-4db3-9F18-388898DAF510&DL=DEVELOPERPACK&ali=1)」を参照してください。
+- Office 365 の SharePoint サイト。 [Office 365 開発者プログラムに参加し、Office 365 の 1 年間の無料サブスクリプションを取得](https://profile.microsoft.com/RegSysProfileCenter/wizardnp.aspx?wizid=14b845d0-938c-45af-b061-f798fbb4d170&amp;lcid=1033)しましょう。
 
 <a name="configure-the-sample"></a>
 ## サンプルを構成する
@@ -103,7 +103,7 @@ AppTemplate.app ファイルは、アプリのマニフェスト ファイルを
 1. サンプルの root フォルダーに移動します。
 2. このサンプルで提供されている **AppPackage.app** ファイルの名前を **AppPackage.zip** に変更します。
 3. zip ファイルを開き、**AppManifest.xml** ファイルを抽出します。
-4. AppManfest.xml ファイルを編集します。*<client_id の値>*を、[アプリの登録] ページのクライアント ID の値に置き換えます。
+4. AppManfest.xml ファイルを編集します。*<client_id の値>* を、[アプリの登録] ページのクライアント ID の値に置き換えます。
 
 	```
 	<AppPrincipal>
@@ -120,8 +120,8 @@ AppTemplate.app ファイルは、アプリのマニフェスト ファイルを
 
 管理者がテナント内の SharePoint サイトにビジネス アプリを展開できるようにするアプリ カタログを使用してアプリを展開することができます。
 
-1. テナントにアプリ カタログ サイトがない場合は、それを作成します。詳細については、「[アプリ カタログ サイトを作成する](http://office.microsoft.com/ja-jp/sharepoint-help/use-the-app-catalog-to-make-custom-business-apps-available-for-your-sharepoint-online-environment-HA102772362.aspx#_Toc347303048)」を参照してください。
-2. アプリ カタログに AppTemplate.app ファイルを追加します。詳細については、「[アプリ カタログ サイトにカスタム アプリを追加する](http://office.microsoft.com/ja-jp/sharepoint-help/use-the-app-catalog-to-make-custom-business-apps-available-for-your-sharepoint-online-environment-HA102772362.aspx#_Toc347303049)」を参照してください。
+1. テナントにアプリ カタログ サイトがない場合は、それを作成します。詳細については、「[アプリ カタログ サイトを作成する](http://office.microsoft.com/en-us/sharepoint-help/use-the-app-catalog-to-make-custom-business-apps-available-for-your-sharepoint-online-environment-HA102772362.aspx#_Toc347303048)」を参照してください。
+2. アプリ カタログに AppTemplate.app ファイルを追加します。詳細については、「[アプリ カタログ サイトにカスタム アプリを追加する](http://office.microsoft.com/en-us/sharepoint-help/use-the-app-catalog-to-make-custom-business-apps-available-for-your-sharepoint-online-environment-HA102772362.aspx#_Toc347303049)」を参照してください。
 3. アプリを展開する SharePoint サイトに移動します。[設定] メニュー (ページの右上隅にある歯車) から、**[アプリの追加]** を選択します。
 4. [SharePoint 用 PHP アプリ] を選択します。[同意] ページで、**[信頼する]** を選択します。
 
@@ -169,5 +169,3 @@ AppPackage.app ファイルは、アプリの展開とテストに使用でき�
 ## 著作権
 
 Copyright (c) Microsoft. All rights reserved.
-
-
