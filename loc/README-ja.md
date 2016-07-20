@@ -29,7 +29,7 @@ SharePoint のアプリ モデルを使用すると、特定の技術に結び�
 このサンプルを実行するには次のものが必要です。
 
 - PHP バージョン 5.3 以上の Web サーバー。
-- Office 365 の SharePoint サイト。 [Office 365 開発者プログラムに参加し、Office 365 の 1 年間の無料サブスクリプションを取得](https://profile.microsoft.com/RegSysProfileCenter/wizardnp.aspx?wizid=14b845d0-938c-45af-b061-f798fbb4d170&amp;lcid=1033)しましょう。
+- Office 365 の SharePoint サイト。 [Office 365 開発者プログラムに参加し、Office 365 の 1 年間の無料サブスクリプションを取得](https://aka.ms/devprogramsignup)しましょう。
 
 <a name="configure-the-sample"></a>
 ## サンプルを構成する
