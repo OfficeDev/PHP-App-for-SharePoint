@@ -29,7 +29,7 @@ Simple, but it illustrates the basic concepts that you need to know to start bui
 This sample requires the following:
 
 - Web server with PHP version 5.3 or higher.
-- SharePoint site on Office 365. [Join the Office 365 Developer Program and get a free 1 year subscription to Office 365](https://profile.microsoft.com/RegSysProfileCenter/wizardnp.aspx?wizid=14b845d0-938c-45af-b061-f798fbb4d170&lcid=1033).
+- SharePoint site on Office 365. [Join the Office 365 Developer Program and get a free 1 year subscription to Office 365](https://aka.ms/devprogramsignup).
 
 <a name="configure-the-sample"></a>
 ## Configure the sample
