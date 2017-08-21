@@ -138,7 +138,7 @@ The sample includes the following components that help you configure and test th
 ### SharePoint.php
 This is a PHP class that inherits from the **AbstractProvider** class. The AbstractProvider class exposes a function to get a token that you can use to issue authorized requests.
  
-The class initializes the values required to get the access token. The constructir requires the client id, client secret, SharePoint site URL, and a context token as parameters. The constructor extracts and formats the following values from the context token:
+The class initializes the values required to get the access token. The constructor requires the client id, client secret, SharePoint site URL, and a context token as parameters. The constructor extracts and formats the following values from the context token:
 
 - Refresh token
 - Token service URI
