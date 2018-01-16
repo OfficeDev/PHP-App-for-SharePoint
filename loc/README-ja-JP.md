@@ -167,4 +167,7 @@ AppPackage.app ファイルは、アプリの展開とテストに使用でき�
 
 ## <a name="copyright"></a>著作権
 
-Copyright (c) Microsoft. All rights reserved.
+Copyright (c) Microsoft.All rights reserved.
+
+
+このプロジェクトでは、[Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/) が採用されています。詳細については、「[Code of Conduct の FAQ](https://opensource.microsoft.com/codeofconduct/faq/)」を参照してください。また、その他の質問やコメントがあれば、[opencode@microsoft.com](mailto:opencode@microsoft.com) までお問い合わせください。
