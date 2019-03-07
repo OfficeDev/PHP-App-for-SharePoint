@@ -1,3 +1,14 @@
+---
+topic: sample
+products:
+- Office 365
+- SharePoint
+languages:
+- PHP
+extensions:
+  contentType: samples
+  createdDate: 10/7/2014 10:31:59 AM
+---
 # PHP App for SharePoint sample
 
 [日本 (日本語)](/loc/README-ja.md) (Japanese)
