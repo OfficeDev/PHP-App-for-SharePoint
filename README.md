@@ -1,10 +1,10 @@
 ---
 topic: sample
 products:
-- Office 365
-- SharePoint
+- office-365
+- office-sp
 languages:
-- PHP
+- php
 extensions:
   contentType: samples
   createdDate: 10/7/2014 10:31:59 AM
