@@ -1,3 +1,14 @@
+---
+page_type: sample
+products:
+- office-365
+- office-sp
+languages:
+- php
+extensions:
+  contentType: samples
+  createdDate: 10/7/2014 10:31:59 AM
+---
 # <a name="php-app-for-sharepoint-sample"></a>SharePoint 用 PHP アプリのサンプル
 
 [日本 (日本語)](/loc/README-ja.md) (日本語)
