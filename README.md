@@ -131,8 +131,8 @@ The AppTemplate.app file is an app package that contains the app manifest file. 
 
 You can deploy the app using the app catalog that lets administrators deploy business apps to SharePoint sites in the tenant.
 
-1. If you don't have an app catalog site in your tenant, create one. For more information, see [Create an App Catalog site](http://office.microsoft.com/en-us/sharepoint-help/use-the-app-catalog-to-make-custom-business-apps-available-for-your-sharepoint-online-environment-HA102772362.aspx#_Toc347303048).
-2. Add the AppTemplate.app file to the app catalog. For more information, see [Add custom apps to the App Catalog site](http://office.microsoft.com/en-us/sharepoint-help/use-the-app-catalog-to-make-custom-business-apps-available-for-your-sharepoint-online-environment-HA102772362.aspx#_Toc347303049).
+1. If you don't have an app catalog site in your tenant, create one. For more information, see [Create an App Catalog site collection](https://docs.microsoft.com/en-us/sharepoint/use-app-catalog#step-1-create-the-app-catalog-site-collection).
+2. Add the AppTemplate.app file to the app catalog. For more information, see [Add custom apps to the App Catalog site](https://docs.microsoft.com/en-us/sharepoint/use-app-catalog#step-2-add-custom-apps-to-the-app-catalog-site).
 3. Go to the SharePoint site where you want to deploy the app. From the Settings menu (the gear in the top right corner of the page) choose **Add an app**.
 4. Choose the PHP App for SharePoint app. In the consent page, choose **Trust It**.
 
