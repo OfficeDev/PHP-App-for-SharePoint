@@ -11,7 +11,7 @@ extensions:
 ---
 # PHP App for SharePoint sample
 
-[日本 (日本語)](/loc/README-ja.md) (Japanese)
+This sample will help you get started building an app for SharePoint that uses PHP. 
 
 **Table of Contents**
 - [Overview](#overview)
