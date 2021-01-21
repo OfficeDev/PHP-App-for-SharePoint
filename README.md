@@ -13,6 +13,8 @@ extensions:
 
 This sample will help you get started building an app for SharePoint that uses PHP. 
 
+> SharePoint add-in model is considered as a legacy option for extending SharePoint user interface. Please see [SharePoint Framework documentation](https://aka.ms/spfx) and the [SharePoint Framework samples](https://aka.ms/spfx-webparts) for the future proven option to extend SharePoint Online. Possible backend services should be using Azure Active Directly based registration and related app models.
+
 **Table of Contents**
 - [Overview](#overview)
 - [Prerequisites](#prerequisites)
